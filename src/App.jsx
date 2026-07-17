@@ -385,19 +385,22 @@ function DonateFlow() {
 }
 
 // --- Nav bar, shared across pages ---
-  function NavBar({ page, goTo, goToDonate }) {
+ // --- Nav bar, shared across pages ---
+
+function NavBar({ page, goTo, goToDonate }) {
+
   const [mobileOpen, setMobileOpen] = useState(false);
+
 
   const handleNav = (destination) => {
     goTo(destination);
     setMobileOpen(false);
   };
 
+
   return (
     <header className="border-b border-neutral-200 bg-white sticky top-0 z-50">
-
       <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-
         <button
           onClick={() => handleNav("home")}
           className="flex items-center"
@@ -407,34 +410,57 @@ function DonateFlow() {
             alt="Junior Jinnah Trust"
             className="h-16"
           />
-        </button>
 
-        <nav className="hidden md:flex gap-14 text-lg">
+        </button>
+        {/* Desktop Navigation */}
+
+        <nav className="hidden md:flex gap-10 text-lg">
+
 
           <button
             onClick={() => handleNav("home")}
-            className={page==="home"?"text-teal-700 font-semibold":"hover:text-teal-700"}
+            className={
+              page==="home"
+              ?"text-teal-700 font-semibold"
+              :"hover:text-teal-700"
+            }
           >
             Home
           </button>
 
           <button
             onClick={() => handleNav("what")}
-            className={page==="what"?"text-teal-700 font-semibold":"hover:text-teal-700"}
+            className={
+              page==="what"
+              ?"text-teal-700 font-semibold"
+              :"hover:text-teal-700"
+            }
           >
             What We Do
           </button>
-
           <button
-            onClick={() => handleNav("home")}
-            className={page==="home"?"text-teal-700 font-semibold":"hover:text-teal-700"}
+            onClick={() => handleNav("news")}
+            className={
+              page==="news"
+              ?"text-teal-700 font-semibold"
+              :"hover:text-teal-700"
+            }
           >
-            Home
+            News
           </button>
-
+          <button
+            onClick={() => handleNav("involved")}
+            className={
+              page==="involved"
+              ?"text-teal-700 font-semibold"
+              :"hover:text-teal-700"
+            }
+          >
+            Get Involved
+          </button>
         </nav>
-
         <div className="flex gap-3 items-center">
+
 
           <button
             onClick={goToDonate}
@@ -447,42 +473,52 @@ function DonateFlow() {
             onClick={()=>setMobileOpen(!mobileOpen)}
             className="md:hidden"
           >
-            {mobileOpen ? <X/> : <Menu/>}
+            {
+              mobileOpen
+              ?
+              <X/>
+              :
+              <Menu/>
+            }
           </button>
-
         </div>
-
       </div>
+      {/* Mobile menu */}
 
-      {mobileOpen && (
-        <div className="md:hidden border-t">
+      {
+        mobileOpen && (
+          <div className="md:hidden border-t">
+            <button
+              onClick={()=>handleNav("home")}
+              className="block w-full text-left px-6 py-4"
+            >
+              Home
+            </button>
+            <button
+              onClick={()=>handleNav("what")}
+              className="block w-full text-left px-6 py-4"
+            >
+              What We Do
+            </button>
 
-          <button
-            onClick={()=>handleNav("home")}
-            className="block w-full text-left px-6 py-4"
-          >
-            Home
-          </button>
-
-          <button
-            onClick={()=>handleNav("what")}
-            className="block w-full text-left px-6 py-4"
-          >
-            What We Do
-          </button>
-
-          <button
-            onClick={()=>handleNav("home")}
-            className="block w-full text-left px-6 py-4"
-          >
-            Home
-          </button>
-
-        </div>
-      )}
-
+            <button
+              onClick={()=>handleNav("news")}
+              className="block w-full text-left px-6 py-4"
+            >
+              News
+            </button>
+            <button
+              onClick={()=>handleNav("involved")}
+              className="block w-full text-left px-6 py-4"
+            >
+              Get Involved
+            </button>
+          </div>
+        )
+      }
     </header>
   );
+
 }
 
 function Footer() {
@@ -493,46 +529,6 @@ function Footer() {
   );
 }
 
-// --- Home page: hero styled like the donate/home hero, + Values grid below ---
-function HomePage({ goToDonate }) {
-  return (
-    <div>
-      <section className="max-w-6xl mx-auto px-4 py-14">
-        <div>
-          <p className="text-teal-700 text-sm font-medium mb-2">About Us</p>
-          <h1 className="text-3xl md:text-4xl font-bold leading-tight text-neutral-900">
-            Quality education for underserved communities across Pakistan.
-          </h1>
-          <p className="mt-4 text-neutral-600">
-            Founded in 2014, Junior Jinnah Trust is a non-profit providing quality education to
-            underserved populations, including orphans, child laborers, street children, and the
-            underprivileged in Pakistan. With 20 campuses in Islamabad and Rawalpindi, JJT has
-            graduated over 1,000 students and currently supports 1,750 — with 1,054 new students
-            enrolled in 2023 alone. Beyond education, JJT supports communities with ration packs,
-            cooked food, medical camps, water filtration, emergency response, uniform kits,
-            employment opportunities, and other welfare initiatives.
-          </p>
-        </div>
-      </section>
-
-      {/* Values & Guiding Principles */}
-      <section className="max-w-6xl mx-auto px-4 py-10">
-        <h2 className="text-xl font-semibold mb-2">Our Values and Guiding Principles</h2>
-        <p className="text-neutral-500 text-sm mb-6">
-          Junior Jinnah Trust follows certain values and guiding principles in all its interventions and dealings.
-        </p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {VALUES.map((v) => (
-            <div key={v.label} className="bg-white rounded-xl border border-neutral-200 p-4 text-center">
-              <v.icon className="mx-auto mb-2 text-teal-600" size={22} />
-              <div className="font-medium text-neutral-900 text-sm">{v.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-    </div>
-  );
-}
 function WhatWeDoPage() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-14 space-y-16">
@@ -555,7 +551,6 @@ function WhatWeDoPage() {
       </section>
 
       <section>
-
         <h2 className="text-2xl font-bold mb-6">
           Our Centres Within Pakistan
         </h2>
@@ -651,16 +646,49 @@ function WhatWeDoPage() {
               <h3 className="font-semibold">
                 {project}
               </h3>
-
             </div>
           ))}
-
         </div>
-
       </section>
 
     </div>
   );
+}
+
+function NewsPage(){
+  return (
+    <div className="max-w-6xl mx-auto px-4 py-20">
+
+      <h1 className="text-4xl font-bold">
+        News
+      </h1>
+
+      <p className="mt-4 text-neutral-500">
+        Latest updates and announcements coming soon.
+      </p>
+
+    </div>
+
+  );
+
+}
+
+function GetInvolvedPage(){
+
+  return (
+
+    <div className="max-w-6xl mx-auto px-4 py-20">
+
+      <h1 className="text-4xl font-bold">
+        Get Involved
+      </h1>
+
+      <p className="mt-4 text-neutral-500">
+        Volunteer opportunities and partnerships coming soon.
+      </p>
+    </div>
+  );
+
 }
 
 // --- Home page: hero, campaigns, donate flow ---
@@ -798,15 +826,10 @@ function WhatWeDoPage() {
                   Donate To This Campaign
                   <ChevronRight size={16}/>
                 </a>
-
               </div>
-
             </div>
-
           ))}
-
         </div>
-
       </section>
 
       {/* ---------------- WHY SUPPORT JJT ---------------- */}
@@ -882,20 +905,15 @@ function WhatWeDoPage() {
               </p>
 
             </div>
-
           </div>
-
         </div>
-
       </section>
 
       {/* ---------------- DONATE ---------------- */}
-
       <section
         id="donate"
         className="max-w-6xl mx-auto px-4 py-20"
       >
-
         <div className="text-center mb-10">
 
           <h2 className="text-3xl font-bold">
@@ -908,103 +926,74 @@ function WhatWeDoPage() {
           </p>
 
         </div>
-
         <DonateFlow />
-
       </section>
-
     </div>
   );
 }
 export default function JJTSite() {
+  const [page,setPage] = useState("home");
 
-  // Home page is now the landing page
-  const [page, setPage] = useState("home");
-
-
-  function goTo(destination) {
+  function goTo(destination){
 
     setPage(destination);
 
     window.scrollTo({
-      top: 0,
-      behavior: "smooth",
+      top:0,
+      behavior:"smooth"
     });
-
   }
 
-
-  function goToDonate() {
-
-    if (page !== "home") {
+  function goToDonate(){
+    if(page !== "home"){
 
       setPage("home");
-
-
-      setTimeout(() => {
-
+      setTimeout(()=>{
         document
-          .getElementById("donate")
-          ?.scrollIntoView({
-            behavior: "smooth",
-          });
-
-      }, 100);
-
-
-    } else {
-
-      document
         .getElementById("donate")
         ?.scrollIntoView({
-          behavior: "smooth",
+          behavior:"smooth"
         });
-
+      },100);
+    }
+    else{
+      document
+      .getElementById("donate")
+      ?.scrollIntoView({
+        behavior:"smooth"
+      });
     }
 
   }
+return (
 
+<div className="min-h-screen bg-neutral-50 text-neutral-900">
+<NavBar
+page={page}
+goTo={goTo}
+goToDonate={goToDonate}
+/>
+{
+page==="home" &&
+<HomePage/>
+}
+{
+page==="what" &&
+<WhatWeDoPage/>
+}
+{
+page==="news" &&
+<NewsPage/>
+}
 
+{
+page==="involved" &&
+<GetInvolvedPage/>
+}
+<Footer/>
+</div>
 
-  return (
+);
 
-    <div className="min-h-screen bg-neutral-50 text-neutral-900">
-
-
-      <NavBar
-        page={page}
-        goTo={goTo}
-        goToDonate={goToDonate}
-      />
-
-
-      {
-        page === "home" &&
-        <HomePage
-          goToDonate={goToDonate}
-        />
-      }
-
-
-      {
-        page === "what" &&
-        <WhatWeDoPage
-          goToDonate={goToDonate}
-        />
-      }
-
-
-      {
-        page === "home" &&
-        <HomePage />
-      }
-
-
-      <Footer />
-
-
-    </div>
-
-  );
 
 }
