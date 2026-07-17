@@ -1,6 +1,24 @@
 import React, { useState } from "react";
-import { Heart,  Users,  Building2,  GraduationCap,  ChevronRight,  CreditCard,  Smartphone,  Landmark,
-  Check,  ShieldCheck,  ScrollText,  HandHeart,  RefreshCcw,  Users2,  Scale,  Sparkles,} from "lucide-react";
+import {
+  Heart,
+  Users,
+  Building2,
+  GraduationCap,
+  ChevronRight,
+  CreditCard,
+  Smartphone,
+  Landmark,
+  Check,
+  ShieldCheck,
+  ScrollText,
+  HandHeart,
+  RefreshCcw,
+  Users2,
+  Scale,
+  Sparkles,
+  Menu,
+  X,
+} from "lucide-react";
 import logo from "./assets/jjt-logo.png";
 import pic1 from "./assets/pic1.png";
 import pic2 from "./assets/pic2.png";
@@ -348,34 +366,115 @@ function DonateFlow() {
 }
 
 // --- Nav bar, shared across pages ---
-function NavBar({ page, goTo, goToDonate }) {
+  function NavBar({ page, goTo, goToDonate }) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleNav = (destination) => {
+    goTo(destination);
+    setMobileOpen(false);
+  };
+
   return (
-    <header className="border-b border-neutral-200 bg-white sticky top-0 z-40">
+    <header className="border-b border-neutral-200 bg-white sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-        <button onClick={() => goTo("home")} className="flex items-center">
-          <img src={logo} alt="Junior Jinnah Trust" className="h-16 w-auto" />
+
+        {/* Logo */}
+        <button onClick={() => handleNav("home")} className="flex items-center">
+          <img
+            src={logo}
+            alt="Junior Jinnah Trust"
+            className="h-16 w-auto"
+          />
         </button>
-        <nav className="hidden md:flex gap-20 text-large text-neutral-700">
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex gap-16 text-lg text-neutral-700">
           <button
-            onClick={() => goTo("about")}
-            className={`hover:text-teal-700 ${page === "about" ? "text-teal-700 font-medium" : ""}`}
+            onClick={() => handleNav("about")}
+            className={`hover:text-teal-700 ${
+              page === "about" ? "text-teal-700 font-semibold" : ""
+            }`}
           >
             About
           </button>
-          <button onClick={() => goTo("home")} className="hover:text-teal-700">
+
+          <button
+            onClick={() => handleNav("home")}
+            className="hover:text-teal-700"
+          >
             What We Do
           </button>
-          <button onClick={() => goTo("home")} className="hover:text-teal-700">
+
+          <button
+            onClick={() => handleNav("home")}
+            className="hover:text-teal-700"
+          >
             News
           </button>
-          <button onClick={() => goTo("home")} className="hover:text-teal-700">
+
+          <button
+            onClick={() => handleNav("home")}
+            className="hover:text-teal-700"
+          >
             Get Involved
           </button>
         </nav>
-        <button onClick={goToDonate} className="bg-teal-600 text-white text-sm px-4 py-2 rounded-lg font-medium">
-          Donate Now
-        </button>
+
+        {/* Right Side */}
+        <div className="flex items-center gap-3">
+
+          <button
+            onClick={goToDonate}
+            className="bg-teal-600 text-white text-sm px-4 py-2 rounded-lg font-medium"
+          >
+            Donate Now
+          </button>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="md:hidden p-2 rounded-lg border border-neutral-300"
+          >
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+
+        </div>
       </div>
+
+      {/* Mobile Menu */}
+      {mobileOpen && (
+        <div className="md:hidden border-t border-neutral-200 bg-white shadow-lg">
+
+          <button
+            onClick={() => handleNav("about")}
+            className="block w-full text-left px-6 py-4 hover:bg-neutral-100"
+          >
+            About
+          </button>
+
+          <button
+            onClick={() => handleNav("home")}
+            className="block w-full text-left px-6 py-4 hover:bg-neutral-100"
+          >
+            What We Do
+          </button>
+
+          <button
+            onClick={() => handleNav("home")}
+            className="block w-full text-left px-6 py-4 hover:bg-neutral-100"
+          >
+            News
+          </button>
+
+          <button
+            onClick={() => handleNav("home")}
+            className="block w-full text-left px-6 py-4 hover:bg-neutral-100"
+          >
+            Get Involved
+          </button>
+
+        </div>
+      )}
     </header>
   );
 }
