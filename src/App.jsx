@@ -399,7 +399,7 @@ function DonateFlow() {
       <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
 
         <button
-          onClick={() => handleNav("about")}
+          onClick={() => handleNav("home")}
           className="flex items-center"
         >
           <img
@@ -412,10 +412,10 @@ function DonateFlow() {
         <nav className="hidden md:flex gap-14 text-lg">
 
           <button
-            onClick={() => handleNav("about")}
-            className={page==="about"?"text-teal-700 font-semibold":"hover:text-teal-700"}
+            onClick={() => handleNav("home")}
+            className={page==="home"?"text-teal-700 font-semibold":"hover:text-teal-700"}
           >
-            About
+            Home
           </button>
 
           <button
@@ -458,10 +458,10 @@ function DonateFlow() {
         <div className="md:hidden border-t">
 
           <button
-            onClick={()=>handleNav("about")}
+            onClick={()=>handleNav("home")}
             className="block w-full text-left px-6 py-4"
           >
-            About
+            Home
           </button>
 
           <button
@@ -493,13 +493,13 @@ function Footer() {
   );
 }
 
-// --- About page: hero styled like the donate/home hero, + Values grid below ---
-function AboutPage({ goToDonate }) {
+// --- Home page: hero styled like the donate/home hero, + Values grid below ---
+function HomePage({ goToDonate }) {
   return (
     <div>
       <section className="max-w-6xl mx-auto px-4 py-14">
         <div>
-          <p className="text-teal-700 text-sm font-medium mb-2">Who we are</p>
+          <p className="text-teal-700 text-sm font-medium mb-2">About Us</p>
           <h1 className="text-3xl md:text-4xl font-bold leading-tight text-neutral-900">
             Quality education for underserved communities across Pakistan.
           </h1>
@@ -557,6 +557,56 @@ function WhatWeDoPage() {
       <section>
 
         <h2 className="text-2xl font-bold mb-6">
+          Our Centres Within Pakistan
+        </h2>
+
+        <div className="grid md:grid-cols-2 gap-6">
+
+          <div className="bg-white rounded-xl border p-6">
+
+            <h3 className="font-bold text-lg mb-4">
+              Islamabad Zone
+            </h3>
+
+            <ul className="space-y-2 text-neutral-600">
+
+              <li>• Burma Town</li>
+              <li>• Khanna Daak</li>
+              <li>• Pindoriyan</li>
+              <li>• Jhang Syedan</li>
+              <li>• Bhara Kahu</li>
+              <li>• G-8</li>
+              <li>• Jabba Taili</li>
+              <li>• Waheedabad</li>
+              <li>• Sohan Garden</li>
+              <li>• Shareefabad</li>
+
+            </ul>
+
+          </div>
+
+          <div className="bg-white rounded-xl border p-6">
+
+            <h3 className="font-bold text-lg mb-4">
+              Rawalpindi Zone
+            </h3>
+
+            <ul className="space-y-2 text-neutral-600">
+
+              <li>• Dheri Hassanabad</li>
+              <li>• Gujar Khan</li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+      </section>  
+
+      <section>
+
+        <h2 className="text-2xl font-bold mb-6">
           Orphan Support Programs
         </h2>
 
@@ -604,56 +654,6 @@ function WhatWeDoPage() {
 
             </div>
           ))}
-
-        </div>
-
-      </section>
-
-      <section>
-
-        <h2 className="text-2xl font-bold mb-6">
-          Our Centres Within Pakistan
-        </h2>
-
-        <div className="grid md:grid-cols-2 gap-6">
-
-          <div className="bg-white rounded-xl border p-6">
-
-            <h3 className="font-bold text-lg mb-4">
-              Islamabad Zone
-            </h3>
-
-            <ul className="space-y-2 text-neutral-600">
-
-              <li>• Burma Town</li>
-              <li>• Khanna Daak</li>
-              <li>• Pindoriyan</li>
-              <li>• Jhang Syedan</li>
-              <li>• Bhara Kahu</li>
-              <li>• G-8</li>
-              <li>• Jabba Taili</li>
-              <li>• Waheedabad</li>
-              <li>• Sohan Garden</li>
-              <li>• Shareefabad</li>
-
-            </ul>
-
-          </div>
-
-          <div className="bg-white rounded-xl border p-6">
-
-            <h3 className="font-bold text-lg mb-4">
-              Rawalpindi Zone
-            </h3>
-
-            <ul className="space-y-2 text-neutral-600">
-
-              <li>• Dheri Hassanabad</li>
-              <li>• Gujar Khan</li>
-
-            </ul>
-
-          </div>
 
         </div>
 
@@ -918,8 +918,8 @@ function WhatWeDoPage() {
 }
 export default function JJTSite() {
 
-  // About page is now the landing page
-  const [page, setPage] = useState("about");
+  // Home page is now the landing page
+  const [page, setPage] = useState("home");
 
 
   function goTo(destination) {
@@ -979,8 +979,8 @@ export default function JJTSite() {
 
 
       {
-        page === "about" &&
-        <AboutPage
+        page === "home" &&
+        <HomePage
           goToDonate={goToDonate}
         />
       }
