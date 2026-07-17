@@ -7,7 +7,6 @@ import {
   ChevronRight,
   CreditCard,
   Smartphone,
-  Landmark,
   Check,
   ShieldCheck,
   ScrollText,
@@ -19,12 +18,14 @@ import {
   Menu,
   X,
 } from "lucide-react";
+
 import logo from "./assets/jjt-logo.png";
 import pic1 from "./assets/pic1.png";
 import pic2 from "./assets/pic2.png";
 import pic3 from "./assets/pic3.png";
 
-// --- Rough data (would come from CMS/CRM in the real build) ---
+/* ---------------- DATA ---------------- */
+
 const CAMPAIGNS = [
   {
     id: "orphan",
@@ -74,21 +75,39 @@ const VALUES = [
   { label: "Diversity", icon: Sparkles },
 ];
 
-const donorTypes = ["Individual", "Corporate", "Sponsor", "Partner", "Alumni"];
+const donorTypes = [
+  "Individual",
+  "Corporate",
+  "Sponsor",
+  "Partner",
+  "Alumni",
+];
+
+const PROGRAMS = [
+  "CHILD DEVELOPMENT CENTERS (CDC) PROJECT – BURMA ISB (2016)",
+  "MONTESSORI & PRIMARY SCHOOLS PROJECT – BURMA ISB (2017)",
+  "MONTESSORI & PRIMARY SCHOOLS PROJECT – DHERI RWP (2018)",
+];
+
+const BUILDINGS = [
+  "PURPOSE BUILT SCHOOL PROJECT – BURMA ISB (2019)",
+];
+
+/* ---------------- Progress Bar ---------------- */
 
 function ProgressBar({ raised, goal }) {
   const pct = Math.min(100, Math.round((raised / goal) * 100));
+
   return (
     <div>
       <div className="flex justify-between text-xs text-neutral-500 mb-1">
         <span>Rs. {raised.toLocaleString()} raised</span>
-        <span>
-          {pct}% of Rs. {goal.toLocaleString()}
-        </span>
+        <span>{pct}%</span>
       </div>
-      <div className="h-2 w-full rounded-full bg-neutral-200 overflow-hidden">
+
+      <div className="h-2 rounded-full bg-neutral-200 overflow-hidden">
         <div
-          className="h-full rounded-full bg-teal-600 transition-all"
+          className="bg-teal-600 h-full"
           style={{ width: `${pct}%` }}
         />
       </div>
@@ -376,105 +395,92 @@ function DonateFlow() {
 
   return (
     <header className="border-b border-neutral-200 bg-white sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
 
-        {/* Logo */}
-        <button onClick={() => handleNav("home")} className="flex items-center">
+      <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+
+        <button
+          onClick={() => handleNav("about")}
+          className="flex items-center"
+        >
           <img
             src={logo}
             alt="Junior Jinnah Trust"
-            className="h-16 w-auto"
+            className="h-16"
           />
         </button>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex gap-16 text-lg text-neutral-700">
+        <nav className="hidden md:flex gap-14 text-lg">
+
           <button
             onClick={() => handleNav("about")}
-            className={`hover:text-teal-700 ${
-              page === "about" ? "text-teal-700 font-semibold" : ""
-            }`}
+            className={page==="about"?"text-teal-700 font-semibold":"hover:text-teal-700"}
           >
             About
           </button>
 
           <button
-            onClick={() => handleNav("home")}
-            className="hover:text-teal-700"
+            onClick={() => handleNav("what")}
+            className={page==="what"?"text-teal-700 font-semibold":"hover:text-teal-700"}
           >
             What We Do
           </button>
 
           <button
             onClick={() => handleNav("home")}
-            className="hover:text-teal-700"
+            className={page==="home"?"text-teal-700 font-semibold":"hover:text-teal-700"}
           >
-            News
+            Home
           </button>
 
-          <button
-            onClick={() => handleNav("home")}
-            className="hover:text-teal-700"
-          >
-            Get Involved
-          </button>
         </nav>
 
-        {/* Right Side */}
-        <div className="flex items-center gap-3">
+        <div className="flex gap-3 items-center">
 
           <button
             onClick={goToDonate}
-            className="bg-teal-600 text-white text-sm px-4 py-2 rounded-lg font-medium"
+            className="bg-teal-600 text-white px-4 py-2 rounded-lg"
           >
             Donate Now
           </button>
 
-          {/* Mobile Menu Button */}
           <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 rounded-lg border border-neutral-300"
+            onClick={()=>setMobileOpen(!mobileOpen)}
+            className="md:hidden"
           >
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            {mobileOpen ? <X/> : <Menu/>}
           </button>
 
         </div>
+
       </div>
 
-      {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-neutral-200 bg-white shadow-lg">
+        <div className="md:hidden border-t">
 
           <button
-            onClick={() => handleNav("about")}
-            className="block w-full text-left px-6 py-4 hover:bg-neutral-100"
+            onClick={()=>handleNav("about")}
+            className="block w-full text-left px-6 py-4"
           >
             About
           </button>
 
           <button
-            onClick={() => handleNav("home")}
-            className="block w-full text-left px-6 py-4 hover:bg-neutral-100"
+            onClick={()=>handleNav("what")}
+            className="block w-full text-left px-6 py-4"
           >
             What We Do
           </button>
 
           <button
-            onClick={() => handleNav("home")}
-            className="block w-full text-left px-6 py-4 hover:bg-neutral-100"
+            onClick={()=>handleNav("home")}
+            className="block w-full text-left px-6 py-4"
           >
-            News
-          </button>
-
-          <button
-            onClick={() => handleNav("home")}
-            className="block w-full text-left px-6 py-4 hover:bg-neutral-100"
-          >
-            Get Involved
+            Home
           </button>
 
         </div>
       )}
+
     </header>
   );
 }
@@ -527,101 +533,478 @@ function AboutPage({ goToDonate }) {
     </div>
   );
 }
-
-// --- Home page: hero, campaigns, donate flow ---
-function HomePage() {
+function WhatWeDoPage() {
   return (
-    <div>
-      <section className="max-w-6xl mx-auto px-4 py-14 grid md:grid-cols-2 gap-8 items-center">
-        <div>
-          <p className="text-teal-700 text-sm font-medium mb-3">Quality education for all</p>
-          <h1 className="text-3xl md:text-4xl font-bold leading-tight text-neutral-900">
-            Raising generations that bring positive change.
-          </h1>
-          <p className="mt-4 text-neutral-600">
-            Since 2014, JJT has supported orphans, out-of-school children, and underprivileged
-            communities across Pakistan with education, food, and humanitarian support.
-          </p>
-          <a href="#donate" className="inline-block mt-6 bg-teal-600 text-white px-5 py-2.5 rounded-lg font-medium">
-            Support a child today
-          </a>
-        </div>
-        <div className="grid grid-cols-3 gap-4">
-          {STATS.map((s) => (
-            <div key={s.label} className="bg-[#f5b400] rounded-xl p-5 text-center shadow-sm">
-              <s.icon className="mx-auto mb-2 text-white" size={24} />
-              <div className="font-bold text-white text-xl">{s.value}</div>
-              <div className="text-sm text-white">{s.label}</div>
-            </div>
-          ))}
-        </div>
+    <div className="max-w-6xl mx-auto px-4 py-14 space-y-16">
+
+      <section>
+
+        <p className="text-teal-700 font-medium">
+          What We Do
+        </p>
+
+        <h1 className="text-4xl font-bold mt-2">
+          Building Futures Through Education
+        </h1>
+
+        <p className="mt-5 text-neutral-600 max-w-3xl">
+          Junior Jinnah Trust provides quality education,
+          orphan support and welfare projects across Pakistan.
+        </p>
+
       </section>
 
-      {/* Campaigns */}
-      <section className="max-w-6xl mx-auto px-4 py-10">
-        <h2 className="text-xl font-semibold mb-5">Our Campaigns</h2>
+      <section>
+
+        <h2 className="text-2xl font-bold mb-6">
+          Orphan Support Programs
+        </h2>
+
         <div className="grid md:grid-cols-3 gap-6">
-          {CAMPAIGNS.map((c) => (
-            <div key={c.id} className="bg-white rounded-xl border border-neutral-200 overflow-hidden">
-              <img src={c.image} alt={c.title} className="w-full h-56 object-cover" />
-              <div className="p-5 space-y-3">
-                <h3 className="font-semibold text-neutral-900 text-lg">{c.title}</h3>
-                <p className="text-sm text-neutral-500">{c.blurb}</p>
-                <ProgressBar raised={c.raised} goal={c.goal} />
-                <div className="text-sm text-neutral-600">
-                  Rs. {c.monthly.toLocaleString()}/month
-                  <br />
-                  Rs. {c.yearly.toLocaleString()}/year
-                </div>
-                <a href="#donate" className="text-teal-700 text-sm font-medium inline-flex items-center gap-1">
-                  Donate to this <ChevronRight size={14} />
-                </a>
+
+          {PROGRAMS.map(program=>(
+            <div
+              key={program}
+              className="bg-white border rounded-xl p-6 shadow-sm hover:shadow-lg transition"
+            >
+              <div className="bg-teal-100 w-14 h-14 rounded-full flex items-center justify-center mb-5">
+                <Heart className="text-teal-600"/>
               </div>
+
+              <h3 className="font-semibold">
+                {program}
+              </h3>
             </div>
           ))}
+
         </div>
+
       </section>
 
-      {/* Donate flow — the core deliverable */}
-      <section id="donate" className="max-w-6xl mx-auto px-4 py-14">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold">Donate Now</h2>
-          <p className="text-neutral-500 mt-1">Pick a cause, enter your details, and pay online — no bank visit needed.</p>
+      <section>
+
+        <h2 className="text-2xl font-bold mb-6">
+          Purpose Built School Projects
+        </h2>
+
+        <div className="grid md:grid-cols-2 gap-6">
+
+          {BUILDINGS.map(project=>(
+            <div
+              key={project}
+              className="bg-white border rounded-xl p-6 shadow-sm hover:shadow-lg transition"
+            >
+              <div className="bg-yellow-100 w-14 h-14 rounded-full flex items-center justify-center mb-5">
+                <Building2 className="text-yellow-600"/>
+              </div>
+
+              <h3 className="font-semibold">
+                {project}
+              </h3>
+
+            </div>
+          ))}
+
         </div>
-        <DonateFlow />
+
       </section>
+
+      <section>
+
+        <h2 className="text-2xl font-bold mb-6">
+          Our Centres Within Pakistan
+        </h2>
+
+        <div className="grid md:grid-cols-2 gap-6">
+
+          <div className="bg-white rounded-xl border p-6">
+
+            <h3 className="font-bold text-lg mb-4">
+              Islamabad Zone
+            </h3>
+
+            <ul className="space-y-2 text-neutral-600">
+
+              <li>• Burma Town</li>
+              <li>• Khanna Daak</li>
+              <li>• Pindoriyan</li>
+              <li>• Jhang Syedan</li>
+              <li>• Bhara Kahu</li>
+              <li>• G-8</li>
+              <li>• Jabba Taili</li>
+              <li>• Waheedabad</li>
+              <li>• Sohan Garden</li>
+              <li>• Shareefabad</li>
+
+            </ul>
+
+          </div>
+
+          <div className="bg-white rounded-xl border p-6">
+
+            <h3 className="font-bold text-lg mb-4">
+              Rawalpindi Zone
+            </h3>
+
+            <ul className="space-y-2 text-neutral-600">
+
+              <li>• Dheri Hassanabad</li>
+              <li>• Gujar Khan</li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+      </section>
+
     </div>
   );
 }
 
-export default function JJTSite() {
-  const [page, setPage] = useState("home");
-
-  // Used by nav links that just switch page (no scroll needed)
-  function goTo(p) {
-    setPage(p);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  // "Donate Now" needs to work from ANY page — including About, which has no #donate
-  // section of its own. So: switch to home first, then scroll to #donate once it's mounted.
-  function goToDonate() {
-    if (page !== "home") {
-      setPage("home");
-      // wait a tick for HomePage (and its #donate section) to render, then scroll
-      setTimeout(() => {
-        document.getElementById("donate")?.scrollIntoView({ behavior: "smooth" });
-      }, 50);
-    } else {
-      document.getElementById("donate")?.scrollIntoView({ behavior: "smooth" });
-    }
-  }
-
+// --- Home page: hero, campaigns, donate flow ---
+ function HomePage() {
   return (
-    <div className="min-h-screen bg-neutral-50 text-neutral-900">
-      <NavBar page={page} goTo={goTo} goToDonate={goToDonate} />
-      {page === "about" ? <AboutPage goToDonate={goToDonate} /> : <HomePage />}
-      <Footer />
+    <div>
+
+      {/* ---------------- HERO ---------------- */}
+
+      <section className="max-w-6xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-10 items-center">
+
+        <div>
+
+          <p className="text-teal-700 font-medium mb-3">
+            Quality Education For All
+          </p>
+
+          <h1 className="text-5xl font-bold leading-tight text-neutral-900">
+            Raising Generations That Bring Positive Change.
+          </h1>
+
+          <p className="mt-6 text-lg text-neutral-600">
+            Since 2014, Junior Jinnah Trust has been empowering
+            underserved communities through education, orphan
+            support, humanitarian assistance and sustainable
+            development projects across Pakistan.
+          </p>
+
+          <a
+            href="#donate"
+            className="inline-flex items-center mt-8 bg-teal-600 hover:bg-teal-700 transition text-white px-6 py-3 rounded-lg font-medium"
+          >
+            Support A Child Today
+          </a>
+
+        </div>
+
+        <div className="grid grid-cols-3 gap-4">
+
+          {STATS.map((s) => (
+            <div
+              key={s.label}
+              className="bg-[#f5b400] rounded-xl p-6 text-center shadow"
+            >
+              <s.icon
+                size={28}
+                className="mx-auto text-white mb-3"
+              />
+
+              <div className="text-2xl font-bold text-white">
+                {s.value}
+              </div>
+
+              <div className="text-white text-sm">
+                {s.label}
+              </div>
+
+            </div>
+          ))}
+
+        </div>
+
+      </section>
+
+      {/* ---------------- CAMPAIGNS ---------------- */}
+
+      <section className="max-w-6xl mx-auto px-4 py-14">
+
+        <div className="text-center mb-10">
+
+          <h2 className="text-3xl font-bold">
+            Our Campaigns
+          </h2>
+
+          <p className="text-neutral-500 mt-2">
+            Every contribution creates opportunities for children.
+          </p>
+
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+
+          {CAMPAIGNS.map((c) => (
+
+            <div
+              key={c.id}
+              className="bg-white rounded-xl border border-neutral-200 overflow-hidden shadow-sm hover:shadow-xl transition"
+            >
+
+              <img
+                src={c.image}
+                alt={c.title}
+                className="w-full h-56 object-cover"
+              />
+
+              <div className="p-6">
+
+                <h3 className="text-xl font-semibold">
+                  {c.title}
+                </h3>
+
+                <p className="mt-2 text-neutral-500">
+                  {c.blurb}
+                </p>
+
+                <div className="mt-5">
+                  <ProgressBar
+                    raised={c.raised}
+                    goal={c.goal}
+                  />
+                </div>
+
+                <div className="mt-5 text-sm text-neutral-700">
+
+                  <div>
+                    Monthly:
+                    <span className="font-semibold ml-1">
+                      Rs. {c.monthly.toLocaleString()}
+                    </span>
+                  </div>
+
+                  <div>
+                    Yearly:
+                    <span className="font-semibold ml-1">
+                      Rs. {c.yearly.toLocaleString()}
+                    </span>
+                  </div>
+
+                </div>
+
+                <a
+                  href="#donate"
+                  className="inline-flex items-center gap-1 mt-5 text-teal-700 font-medium"
+                >
+                  Donate To This Campaign
+                  <ChevronRight size={16}/>
+                </a>
+
+              </div>
+
+            </div>
+
+          ))}
+
+        </div>
+
+      </section>
+
+      {/* ---------------- WHY SUPPORT JJT ---------------- */}
+
+      <section className="bg-white py-16">
+
+        <div className="max-w-6xl mx-auto px-4">
+
+          <div className="text-center mb-12">
+
+            <h2 className="text-3xl font-bold">
+              Why Support Junior Jinnah Trust?
+            </h2>
+
+            <p className="mt-3 text-neutral-500">
+              Every donation directly impacts children's lives.
+            </p>
+
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+
+            <div className="border rounded-xl p-8 text-center">
+
+              <GraduationCap
+                className="mx-auto text-teal-600 mb-5"
+                size={40}
+              />
+
+              <h3 className="font-semibold text-lg">
+                Education
+              </h3>
+
+              <p className="mt-3 text-neutral-500">
+                Providing quality education to children who otherwise
+                would not have access to schools.
+              </p>
+
+            </div>
+
+            <div className="border rounded-xl p-8 text-center">
+
+              <Heart
+                className="mx-auto text-teal-600 mb-5"
+                size={40}
+              />
+
+              <h3 className="font-semibold text-lg">
+                Care
+              </h3>
+
+              <p className="mt-3 text-neutral-500">
+                Supporting orphans and vulnerable children through
+                nutrition, healthcare and emotional wellbeing.
+              </p>
+
+            </div>
+
+            <div className="border rounded-xl p-8 text-center">
+
+              <Building2
+                className="mx-auto text-teal-600 mb-5"
+                size={40}
+              />
+
+              <h3 className="font-semibold text-lg">
+                Community
+              </h3>
+
+              <p className="mt-3 text-neutral-500">
+                Investing in schools, clean water, relief efforts,
+                employment and community development.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* ---------------- DONATE ---------------- */}
+
+      <section
+        id="donate"
+        className="max-w-6xl mx-auto px-4 py-20"
+      >
+
+        <div className="text-center mb-10">
+
+          <h2 className="text-3xl font-bold">
+            Donate Now
+          </h2>
+
+          <p className="text-neutral-500 mt-2">
+            Choose a campaign, enter your details and securely
+            complete your donation.
+          </p>
+
+        </div>
+
+        <DonateFlow />
+
+      </section>
+
     </div>
   );
+}
+export default function JJTSite() {
+
+  // About page is now the landing page
+  const [page, setPage] = useState("about");
+
+
+  function goTo(destination) {
+
+    setPage(destination);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
+  }
+
+
+  function goToDonate() {
+
+    if (page !== "home") {
+
+      setPage("home");
+
+
+      setTimeout(() => {
+
+        document
+          .getElementById("donate")
+          ?.scrollIntoView({
+            behavior: "smooth",
+          });
+
+      }, 100);
+
+
+    } else {
+
+      document
+        .getElementById("donate")
+        ?.scrollIntoView({
+          behavior: "smooth",
+        });
+
+    }
+
+  }
+
+
+
+  return (
+
+    <div className="min-h-screen bg-neutral-50 text-neutral-900">
+
+
+      <NavBar
+        page={page}
+        goTo={goTo}
+        goToDonate={goToDonate}
+      />
+
+
+      {
+        page === "about" &&
+        <AboutPage
+          goToDonate={goToDonate}
+        />
+      }
+
+
+      {
+        page === "what" &&
+        <WhatWeDoPage
+          goToDonate={goToDonate}
+        />
+      }
+
+
+      {
+        page === "home" &&
+        <HomePage />
+      }
+
+
+      <Footer />
+
+
+    </div>
+
+  );
+
 }
