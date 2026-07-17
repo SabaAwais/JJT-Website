@@ -270,8 +270,7 @@ function DonateFlow() {
             <div className="grid grid-cols-3 gap-2">
               {[
                 { id: "card", label: "Card", icon: CreditCard },
-                { id: "jazzcash", label: "JazzCash/Easypaisa", icon: Smartphone },
-                { id: "bank", label: "Bank Transfer", icon: Landmark },
+                { id: "jazzcash", label: "JazzCash/Easypaisa", icon: Smartphone }
               ].map((m) => (
                 <button
                   type="button"
@@ -297,13 +296,6 @@ function DonateFlow() {
             )}
             {method === "jazzcash" && (
               <input placeholder="Mobile number" className="w-full rounded-lg border border-neutral-300 px-3 py-2" required />
-            )}
-            {method === "bank" && (
-              <div className="text-sm bg-neutral-50 border border-neutral-200 rounded-lg p-3 text-neutral-600">
-                Samba Bank Ltd · Junior Jinnah Trust <br />
-                A/C# 2000848908 · IBAN PK27SAMB0000002000848908 <br />
-                Upload your transfer receipt on the next screen after sending.
-              </div>
             )}
 
             <div className="bg-neutral-50 rounded-lg p-3 text-sm flex justify-between">
