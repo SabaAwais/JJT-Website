@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin:0;
+  font-family: "Inter", Arial, sans-serif;
+  background:#ffffff;
+  color:#333;
+}
+
+* {
+  box-sizing:border-box;
+}
+
+html {
+  scroll-behavior:smooth;
+}
+
+
+:root {
+  --jjt-blue:#003b5c;
+  --jjt-gold:#f5b400;
+  --jjt-light:#f8f7f2;
+}
+
+header {
+  background:white;
+  border-bottom:1px solid #eee;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+header img {
+  object-fit:contain;
+}
+
+nav span {
+  cursor:pointer;
+  color:#555;
+  font-weight:500;
+  transition:.3s;
+}
+
+nav span:hover {
+  color:var(--jjt-blue);
+}
+
+/* BUTTONS */
+
+button,
+a {
+  transition:.3s ease;
+}
+
+.bg-teal-600 {
+  background-color:var(--jjt-blue)!important;
+}
+
+.bg-teal-600:hover {
+  background-color:#002943!important;
+  transform:translateY(-2px);
+}
+
+.text-teal-700 {
+  color:var(--jjt-blue)!important;
+}
+
+.text-teal-600 {
+  color:var(--jjt-blue)!important;
+}
+
+.border-teal-600 {
+  border-color:var(--jjt-blue)!important;
+}
+
+/* HERO */
+
+h1 {
+  color:var(--jjt-blue);
+  letter-spacing:-1px;
+  font-weight:700;
+}
+
+section p {
+  line-height:1.7;
+}
+
+/* CARDS */
+.rounded-xl {
+  border-radius:14px;
+  transition:.3s ease;
+}
+
+.rounded-xl:hover {
+  transform:translateY(-4px);
+  box-shadow:
+  0 12px 35px rgba(0,0,0,.08);
+
+}
+
+/* STAT CARDS */
+
+.bg-white {
+  background:white;
+}
+
+/* DONATION BOX */
+
+.shadow-sm {
+box-shadow:
+0 8px 25px rgba(0,0,0,.06);
+}
+
+/* PROGRESS */
+
+.bg-neutral-200 {
+background:#e8e8e8;
+}
+
+.h-full.bg-teal-600 {
+background:
+#f5b400
+!important;
+}
+/* FOOTER */
+
+footer {
+background:#f5b400!important;
+color:white!important;
+margin-top:50px;
+}
+
+/* INPUTS */
+
+input {
+font-size:15px;
+}
+
+
+input:focus {
+border-color:#003b5c!important;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+header img {
+height:55px;
+}
+
+h1{
+font-size:2rem;
+}
+}
