@@ -1,16 +1,27 @@
-# React + Vite
+## JJT Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A redesigned frontend for Junior Jinnah Trust, a nonprofit providing education and community support to underprivileged children in Pakistan. This project was built as part of my summer internship with JJT, where our team was tasked with upgrading their existing website and fixing gaps in their donation experience.
 
-Currently, two official plugins are available:
+## What it does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Displays JJT's mission, impact stats, and current campaigns on the homepage
+- Includes a dedicated About page covering JJT's founding, campuses, and the number of students they support
+- Lists JJT's core values and guiding principles
+- Shows live progress bars on each campaign so donors can see how much has been raised toward a goal
+- Provides a full multi step donation flow, letting a donor pick a campaign, choose a monthly or yearly amount, select a donor type, and pay through card, JazzCash or Easypaisa, or bank transfer
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- Tailwind CSS
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+npm run dev
+```
+
+## Why I built this
+
+JJT's original site had no real online payment flow, donors had to manually transfer money and then message the organization for a receipt, and there was no way to see progress toward a campaign's goal. This project was our attempt at solving those specific gaps while keeping the design simple and true to what a small nonprofit team could realistically maintain. It also ties directly into the CRM system we're separately building for JJT since the donor information collected through this flow is meant to eventually feed into that donor tracking system.
